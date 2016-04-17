@@ -31,6 +31,9 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
         combineImg(abs(Yalignment)+1:size(combineImg(:,:,1),1), 1:CylImg1Col, :) = CylImg1(:,:,:);
     end
     
+    weighted = [1:img2Row];
+    weighted = weighted./max(weighted);
+    
     originX = CylX1 - CylX2;
     originY = CylY1 - CylY2;
     if Yalignment > 0
