@@ -1,4 +1,4 @@
-function CylImg = cylindrical_projection(img, f, radius)
+function [CylImg, corresponding_coor] = cylindrical_projection(img, f, radius)
     row = size(img(:,:,1),1);
     col = size(img(:,:,1),2);
     xfrom = floor(-col/2);
@@ -6,12 +6,14 @@ function CylImg = cylindrical_projection(img, f, radius)
     yfrom = floor(-row/2);
     yto = ceil(row/2);
     
+    corresponding_coor = repmat(struct('CylY',0,'CylX',0), row, col);
+    
 %     width = ceil(radius * 2 * abs(atan(xto/f) - atan(xfrom/f)))
 %     height = round(radius*(abs(yfrom/f - yto/f) + 1))
     width = round(sin(atan(xto/f)) * radius)*2 + 10;
     height = round(yto/sqrt(f^2) * radius)*2 + 10;
 
-    CylImg = ones(height, width, 3,'uint8');
+    CylImg = zeros(height, width, 3,'uint8');
     
     CylCenterX = round(width/2);
     CylCenterY = round(height/2);
@@ -28,6 +30,8 @@ function CylImg = cylindrical_projection(img, f, radius)
 %             round(h)
 %             round(sin(theta)*radius)
             CylImg(CylCenterY + round(h), CylCenterX + round(sin(theta)*radius), :) = img(y+1, x+1, :);
+            
+            corresponding_coor(y+1, x+1) = struct('CylY', CylCenterY + round(h),'CylX', CylCenterX + round(sin(theta)*radius));
             
         end
     end
