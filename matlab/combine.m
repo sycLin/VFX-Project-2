@@ -31,7 +31,7 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
         combineImg(abs(Yalignment)+1:size(combineImg(:,:,1),1), 1:CylImg1Col, :) = CylImg1(:,:,:);
     end
     
-    weighted = [1:img2Row];
+    weighted = [1:img2Col];
     weighted = weighted./max(weighted);
     
     originX = CylX1 - CylX2;
@@ -44,7 +44,19 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
         for col=1:img2Col
             c_x = c_coor2(row,col).CylX;
             c_y = c_coor2(row,col).CylY;
-            combineImg(originY + c_y, originX + c_x, :) = CylImg2(c_y, c_x,:);
+            if combineImg(originY + c_y, originX + c_x, :) ~= 0
+                if abs(combineImg(originY + c_y, originX + c_x, :) - CylImg2(c_y, c_x,:)) > 20
+                    if weighted(col) > 1-weighted(col)
+                        combineImg(originY + c_y, originX + c_x, :) = CylImg2(c_y, c_x,:);
+                    else
+                        combineImg(originY + c_y, originX + c_x, :) = combineImg(originY + c_y, originX + c_x, :);
+                    end
+                else
+                    combineImg(originY + c_y, originX + c_x, :) = round(CylImg2(c_y, c_x,:)*weighted(col) + combineImg(originY + c_y, originX + c_x, :)*(1-weighted(col)));
+                end
+            else
+                combineImg(originY + c_y, originX + c_x, :) = CylImg2(c_y, c_x,:);
+            end
             corresponding_coor(row, col) = struct('CylY', originY + c_y,'CylX', originX + c_x);
         end
     end

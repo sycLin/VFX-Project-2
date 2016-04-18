@@ -19,6 +19,16 @@ plotMatches(img1, img2, matche_ans);
 
 
 [combineImg, c_coor] = combine(img2, CylImg1, CylImg2, c_coor1, c_coor2, matche_ans);
+
+img3 = imread('prtn17.jpg');
+imgGray3 = rgb2gray(img3);
+keypoints3 = my_harris(img3);
+descriptors3 = descriptor(keypoints3, imgGray3);
+[CylImg3, c_coor3] = cylindrical_projection(img3, 705.576, 705.576);
+
+matche_ans = matches(descriptors2, descriptors3);
+
+[combineImg, c_coor] = combine(img3, combineImg, CylImg3, c_coor, c_coor3, matche_ans);
 % img2 = imread('prtn00.jpg');
 % [CylImg, corresponding_coor] = cylindrical_projection(img2, 704.916, 704.916);
 % imshow(CylImg)
