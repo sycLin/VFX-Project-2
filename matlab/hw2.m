@@ -29,6 +29,16 @@ descriptors3 = descriptor(keypoints3, imgGray3);
 matche_ans = matches(descriptors2, descriptors3);
 
 [combineImg, c_coor] = combine(img3, combineImg, CylImg3, c_coor, c_coor3, matche_ans);
+
+img4 = imread('prtn16.jpg');
+imgGray4 = rgb2gray(img4);
+keypoints4 = my_harris(img4);
+descriptors4 = descriptor(keypoints4, imgGray4);
+[CylImg4, c_coor4] = cylindrical_projection(img4, 705.102, 705.102);
+
+matche_ans = matches(descriptors3, descriptors4);
+
+[combineImg, c_coor] = combine(img4, combineImg, CylImg4, c_coor, c_coor4, matche_ans);
 % img2 = imread('prtn00.jpg');
 % [CylImg, corresponding_coor] = cylindrical_projection(img2, 704.916, 704.916);
 % imshow(CylImg)

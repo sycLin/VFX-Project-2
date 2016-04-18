@@ -25,7 +25,7 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
     Xalignment = ((CylImg1Col - CylX1 + 1) + (CylX2));
     Yalignment = CylY1 - CylY2
     combineImg = zeros(CylImg1Row + abs(Yalignment) , CylImg1Col + CylImg2Col - Xalignment, 3, 'uint8');
-    if Yalignment < 0
+    if Yalignment > 0
         combineImg(1:CylImg1Row, 1:CylImg1Col,:) = CylImg1(:,:,:);
     else
         combineImg(abs(Yalignment)+1:size(combineImg(:,:,1),1), 1:CylImg1Col, :) = CylImg1(:,:,:);
@@ -36,7 +36,7 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
     
     originX = CylX1 - CylX2;
     originY = CylY1 - CylY2;
-    if Yalignment > 0
+    if Yalignment < 0
         originY = originY + abs(Yalignment);
     end
     
