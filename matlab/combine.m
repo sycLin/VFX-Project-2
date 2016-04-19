@@ -4,9 +4,9 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
     [CylImg1Row, CylImg1Col] = size(CylImg1(:,:,1));
     [CylImg2Row, CylImg2Col] = size(CylImg2(:,:,1));
     corresponding_coor = repmat(struct('CylY',0,'CylX',0), img2Row, img2Col);
-    accumulate = repmat(struct('Xalignment',0,'Yalignment',0,'count',0),CylImg2Col,1);
+    accumulate = repmat(struct('Xalignment',0,'Yalignment',0,'count',0),CylImg2Col*2,1);
     for match=1:size(matches, 1)
-        if matches(match).distance > 0.3
+        if matches(match).distance > 0.5
             continue;
         else
             desc1 = matches(match).Imgdescriptor1; 
@@ -30,7 +30,7 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
     end
     maxCount = -1;
     maxindex = 1;
-    for i=1:CylImg2Col
+    for i=1:CylImg2Col*2
         if accumulate(i).count > maxCount
             maxCount = accumulate(i).count;
             maxindex = i;
