@@ -30,14 +30,9 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
     end
     maxCount = -1;
     maxindex = 1;
-    for i=1:CylImg2Col
-        if accumulate(i).count > maxCount
-            maxCount = accumulate(i).count;
-            maxindex = i;
-        end
-    end
-    Xalignment = accumulate(maxindex).Xalignment;%((CylImg1Col - CylX1 + 1) + (CylX2));
-    Yalignment = accumulate(maxindex).Yalignment;%CylY1 - CylY2;
+    for 
+    Xalignment = ((CylImg1Col - CylX1 + 1) + (CylX2));
+    Yalignment = CylY1 - CylY2;
     combineImg = zeros(CylImg1Row + abs(Yalignment) , CylImg1Col + CylImg2Col - Xalignment, 3, 'uint8');
     if Yalignment > 0
         combineImg(1:CylImg1Row, 1:CylImg1Col,:) = CylImg1(:,:,:);
