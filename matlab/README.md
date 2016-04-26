@@ -2,7 +2,7 @@
 ===
 ### 使用說明
 * 在合併圖片時將舊的圖片放在左側，要併上的圖片則在右側，照著此步驟完成一張全景圖(有兩個圖片參數時,左變那個參數為左側圖片)
-* 在做cylindrical_projection的時候建議將focal length 和 radius設為相同的值
+* 在做cylindrical_projection的時候建議將 focal length 和 radius 設為相同的值
 
 my_harris
 ---
