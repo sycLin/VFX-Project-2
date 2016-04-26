@@ -16,7 +16,7 @@ This function implement the harris coner detection, k=0.04 threshold=50000, and 
 descriptor
 ---
 This function take the image key points as input and use SIFT feature descriptor to descript each key point with 128 dimension.
-For each key point we use gaussion wieghted 16x16 window in 8 orient to descript it and accumulate 4x4 window size in 16x16 area to one dimension(total result 128 dimension for one key point, 16x8).
+For each key point we use gaussion wieghted 16x16 window in 8 orient to descript it and accumulate 4x4 window size in 16x16 area to one dimension(total result 128 dimension for one key point, 16x8)
 
 		param 	keypoints		binary matrix, piexl with value 1 is keypoint
 		param 	grayimg 		gray level image of the keypoints' original image
@@ -52,6 +52,8 @@ The function can draw detected pairs for two image to demonstrate the match func
 
 combine
 ---
+This function take two cylindrical image as input and return the combined image. We calculate the shifting of two image's matched key points and use voting to choose the highest(will resize the height of result image according to the y coordinate shifting), then using blending(a weighted function for overlap piexls according to distance to two image) to combine two cylindrical images.
+
 		param 	rgbimgR 		the rgb image to be combined(on the right side)
 		param 	CylImg1			cylindrical projection image(on the left side)
 		param 	CylImg2 		cylindrical projection image(on the right side)
