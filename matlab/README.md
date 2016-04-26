@@ -29,7 +29,7 @@ cylindrical_projection
 This function warp the origin image to cylindrical surfaces by given focal length and cylindrical radius. The result this the projected image and the coordinate lookup table for original image to processed image.
 
 		param  rgbimg			input rgb image to do cylindrical projection
-		param  f 			focal length
+		param  f 		  	focal length
 		param  radius 			radius of cylindrical
 
 		return [CylImg,c_coor] cylindrical projection image and lookup table for original image to processed image
