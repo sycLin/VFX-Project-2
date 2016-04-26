@@ -2,7 +2,7 @@ my_harris
 ---
 		param 	rgbimg			input rgb image to extract harris feature point
 
-		return keypoints		binary matrix, piexl with value 1 is keypoint
+		return  keypoints		binary matrix, piexl with value 1 is keypoint
 
 
 descriptor
@@ -16,7 +16,7 @@ descriptor
 cylindrical_projection
 ---
 		param  rgbimg			input rgb image to do cylindrical projection
-		param 	f 				focal length
+		param  f 			focal length
 		param  radius 			radius of cylindrical
 
 		return [CylImg,c_coor] cylindrical projection image and lookup table for original image to processed image
@@ -27,12 +27,12 @@ matches
 		param 	descriptors1 	descriptors to be matched
 		param 	descriptors2	descriptors to be matched
 
-		return matche_ans 		structure containing all matched pairs and its cosine similarity of two image
+		return  matche_ans 	structure containing all matched pairs and its cosine similarity of two image
 
 
 plotMatches
 ---
-		draw detected pairs for two image
+draw detected pairs for two image
 
 
 combine
