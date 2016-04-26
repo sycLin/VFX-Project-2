@@ -34,6 +34,8 @@ This function warp the origin image to cylindrical surfaces by given focal lengt
 
 		return [CylImg,c_coor] cylindrical projection image and lookup table for original image to processed image
 
+https://github.com/sycLin/VFX-Project-2/blob/master/README_image/projection.png
+
 
 matches
 ---
@@ -48,6 +50,8 @@ This function take two image descriptors as input and calculate the cosin simila
 plotMatches
 ---
 The function can draw detected pairs for two image to demonstrate the match function's result.
+
+https://github.com/sycLin/VFX-Project-2/blob/master/README_image/matching.png
 
 
 combine
