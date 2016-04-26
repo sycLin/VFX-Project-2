@@ -25,6 +25,7 @@ For each key point we use gaussion wieghted 16x16 window in 8 orient to descript
 
 cylindrical_projection
 ---
+This function warp the origin image to cylindrical surfaces by given focal length and cylindrical radius. The result this the projected image and the coordinate lookup table for original image to processed image.
 		param  rgbimg			input rgb image to do cylindrical projection
 		param  f 			focal length
 		param  radius 			radius of cylindrical
@@ -34,6 +35,7 @@ cylindrical_projection
 
 matches
 ---
+This function take two image descriptors as input and calculate the cosin similarity to match the similar key points. The result return the pair of descriptors and its cosin similarity value.
 		param 	descriptors1 	descriptors to be matched
 		param 	descriptors2	descriptors to be matched
 
@@ -42,7 +44,7 @@ matches
 
 plotMatches
 ---
-draw detected pairs for two image
+The function can draw detected pairs for two image to demonstrate the match function's result.
 
 
 combine
