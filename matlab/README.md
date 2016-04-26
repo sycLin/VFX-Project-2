@@ -16,7 +16,7 @@ This function implement the harris coner detection, k=0.04 threshold=50000, and 
 descriptor
 ---
 This function take the image key points as input and use SIFT feature descriptor to descript each key point with 128 dimension.
-For each key point we use gaussion wieghted 16x16 window in 8 orient to descript it and accumulate 4x4 window size to one dimension 
+For each key point we use gaussion wieghted 16x16 window in 8 orient to descript it and accumulate 4x4 window size in 16x16 area to one dimension(total result 128 dimension for one key point, 16x8) 
 		param 	keypoints		binary matrix, piexl with value 1 is keypoint
 		param 	grayimg 		gray level image of the keypoints' original image
 
