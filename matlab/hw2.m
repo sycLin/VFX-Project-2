@@ -1,4 +1,15 @@
-function hw2()
+function hw2(txtPath)
+%{
+[paths, focals] = textread(txtPath,'%s %f');
+totalNum = size(paths, 1);
+imgs = cell(totalNum, 1);
+paths
+for i=1:totalNum
+    imgs{i} = imread(paths{i});
+end
+imshow(imgs{1})
+focals(1)
+%}
 
 img1 = imread('prtn01.jpg');
 imgGray1 = rgb2gray(img1);
