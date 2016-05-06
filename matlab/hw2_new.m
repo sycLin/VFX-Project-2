@@ -1,4 +1,4 @@
-function newhw2(file_path)
+function hw2_new(file_path)
 
 % get the paths and focal lendths from file
 
@@ -35,17 +35,18 @@ end
 cylin_images = cell(total_count, 1);
 cylin_coords = cell(total_count, 1);
 for i = 1:total_count
-	[cylin_images{i}, cylin_coords{i}] = cylindrical_projection(images{i}, focals{i}, focals{i})
+	[cylin_images{i}, cylin_coords{i}] = cylindrical_projection(images{i}, focals(i), focals(i));
 end
 
 % combining stage
 combined_image = cylin_images{1} % initialize
 combined_cylin_coord = cylin_coords{1} % initialize
 for i = 2:total_count
-	[combined_image, combined_cylin_coord] = combine(images{i}, combined_image, cylin_images{i}, combined_cylin_coord, cylin_coords{i});
+	matches_result = matches(descriptors{i-1}, descriptors{i});
+	[combined_image, combined_cylin_coord] = combine(images{i}, combined_image, cylin_images{i}, combined_cylin_coord, cylin_coords{i}, matches_result);
 end
 
 % write the result
-imwrite(combined_image, "result.jpg");
+imwrite(combined_image, 'result.jpg');
 
 end
