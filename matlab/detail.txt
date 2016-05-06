@@ -1,0 +1,4 @@
+prtn01.jpg 706.286
+prtn00.jpg 704.916
+prtn17.jpg 705.576
+prtn16.jpg 704.537 
