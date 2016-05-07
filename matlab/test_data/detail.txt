@@ -1,0 +1,11 @@
+test_data/SAM_0184.JPG 833.616
+test_data/SAM_0185.JPG 826.664
+test_data/SAM_0186.JPG 821.622
+test_data/SAM_0187.JPG 817.631
+test_data/SAM_0188.JPG 812.786
+test_data/SAM_0189.JPG 809.391
+test_data/SAM_0190.JPG 806.128
+test_data/SAM_0191.JPG 801.635
+test_data/SAM_0192.JPG 798.447
+test_data/SAM_0182.JPG 797.374
+test_data/SAM_0183.JPG 793.648
