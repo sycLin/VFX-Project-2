@@ -39,10 +39,11 @@ for i = 1:total_count
 end
 
 % combining stage
-combined_image = cylin_images{1} % initialize
-combined_cylin_coord = cylin_coords{1} % initialize
+combined_image = cylin_images{1}; % initialize
+combined_cylin_coord = cylin_coords{1}; % initialize
 for i = 2:total_count
 	matches_result = matches(descriptors{i-1}, descriptors{i});
+    plotMatches(images{i-1}, images{i}, matches_result);
 	[combined_image, combined_cylin_coord] = combine(images{i}, combined_image, cylin_images{i}, combined_cylin_coord, cylin_coords{i}, matches_result);
 end
 

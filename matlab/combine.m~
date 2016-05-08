@@ -5,7 +5,7 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
     [CylImg2Row, CylImg2Col] = size(CylImg2(:,:,1));
     corresponding_coor = repmat(struct('CylY',0,'CylX',0), img2Row, img2Col);
     maxRow = max(CylImg1Row, CylImg2Row);
-    accumulate = repmat(struct('originX',0,'originY',0,'Xalignment',0,'Yalignment',0,'count',0),CylImg2Col*2, maxRow*2);
+    accumulate = repmat(struct('Xalignment',0,'Yalignment',0,'count',0),CylImg2Col*2, maxRow*2);
     for match=1:size(matches, 1)
         if matches(match).distance > 0.5
             continue;
@@ -25,7 +25,7 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
             
             Xalignment = ((CylImg1Col - CylX1 + 1) + (CylX2));
             Yalignment = CylY1 - CylY2;
-            t_struct = struct('originX',CylX1 - CylX2,'originY',CylY1 - CylY2,'Xalignment',Xalignment,'Yalignment',Yalignment,'count',accumulate(Xalignment, maxRow+Yalignment).count + 1);
+            t_struct = struct('originX',CylX1 - CylX2 'originY','Xalignment',Xalignment,'Yalignment',Yalignment,'count',accumulate(Xalignment, maxRow+Yalignment).count + 1);
             accumulate(Xalignment, maxRow+Yalignment) = t_struct;
         end
     end
@@ -53,8 +53,8 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
     weighted = [1:img2Col];
     weighted = weighted./max(weighted);
     
-    originX = accumulate(maxindex_i,maxindex_j).originX;
-    originY = accumulate(maxindex_i,maxindex_j).originY;
+    originX = CylX1 - CylX2
+    originY = CylY1 - CylY2
     if Yalignment < 0
         originY = originY + abs(Yalignment);
     end
@@ -63,6 +63,8 @@ function [combineImg, corresponding_coor] = combine(img2, CylImg1, CylImg2, c_co
         for col=1:img2Col
             c_x = c_coor2(row,col).CylX;
             c_y = c_coor2(row,col).CylY;
+            originY + c_y
+            originX + c_x
             if combineImg(originY + c_y, originX + c_x, :) ~= 0
                 if abs(combineImg(originY + c_y, originX + c_x, :) - CylImg2(c_y, c_x,:)) > 20
                     if weighted(col) > 1-weighted(col)
