@@ -1,68 +1,53 @@
-function hw2(txtPath)
-%{
-[paths, focals] = textread(txtPath,'%s %f');
-totalNum = size(paths, 1);
-imgs = cell(totalNum, 1);
-paths
-for i=1:totalNum
-    imgs{i} = imread(paths{i});
+function hw2(file_path)
+
+% get the paths and focal lendths from file
+
+[paths, focals] = textread(file_path, '%s %f');
+total_count = size(paths, 1);
+
+% read the images
+
+images = cell(total_count, 1);
+for i = 1:total_count
+	images{i} = imread(paths{i});
 end
-imshow(imgs{1})
-focals(1)
-%}
 
-img1 = imread('prtn01.jpg');
-imgGray1 = rgb2gray(img1);
-keypoints1 = my_harris(img1);
-descriptors1 = descriptor(keypoints1, imgGray1);
-[CylImg1, c_coor1] = cylindrical_projection(img1, 706.286, 706.286);
+% convert to grayscale
 
-img2 = imread('prtn00.jpg');
-imgGray2 = rgb2gray(img2);
-keypoints2 = my_harris(img2);
-descriptors2 = descriptor(keypoints2, imgGray2);
-[CylImg2, c_coor2] = cylindrical_projection(img2, 704.916, 704.916);
+gray_images = cell(total_count, 1);
+for i = 1:total_count
+	gray_images{i} = rgb2gray(images{i});
+end
 
+% compute keypoints
+keypoints = cell(total_count, 1);
+for i = 1:total_count
+	keypoints{i} = my_harris(images{i});
+end
 
-matche_ans = matches(descriptors1, descriptors2);
+% compute descriptors
+descriptors = cell(total_count, 1);
+for i = 1:total_count
+	descriptors{i} = descriptor(keypoints{i}, gray_images{i});
+end
 
-plotMatches(img1, img2, matche_ans);
+% do cylindrical projection
+cylin_images = cell(total_count, 1);
+cylin_coords = cell(total_count, 1);
+for i = 1:total_count
+	[cylin_images{i}, cylin_coords{i}] = cylindrical_projection(images{i}, focals(i), focals(i));
+end
 
+% combining stage
+combined_image = cylin_images{1}; % initialize
+combined_cylin_coord = cylin_coords{1}; % initialize
+for i = 2:total_count
+	matches_result = matches(descriptors{i-1}, descriptors{i});
+    plotMatches(images{i-1}, images{i}, matches_result);
+	[combined_image, combined_cylin_coord] = combine(images{i}, combined_image, cylin_images{i}, combined_cylin_coord, cylin_coords{i}, matches_result);
+end
 
-[combineImg, c_coor] = combine(img2, CylImg1, CylImg2, c_coor1, c_coor2, matche_ans);
-
-img3 = imread('prtn17.jpg');
-imgGray3 = rgb2gray(img3);
-keypoints3 = my_harris(img3);
-descriptors3 = descriptor(keypoints3, imgGray3);
-[CylImg3, c_coor3] = cylindrical_projection(img3, 705.576, 705.576);
-
-matche_ans = matches(descriptors2, descriptors3);
-
-[combineImg, c_coor] = combine(img3, combineImg, CylImg3, c_coor, c_coor3, matche_ans);
-
-img4 = imread('prtn16.jpg');
-imgGray4 = rgb2gray(img4);
-keypoints4 = my_harris(img4);
-descriptors4 = descriptor(keypoints4, imgGray4);
-[CylImg4, c_coor4] = cylindrical_projection(img4, 705.102, 705.102);
-
-matche_ans = matches(descriptors3, descriptors4);
-
-[combineImg, c_coor] = combine(img4, combineImg, CylImg4, c_coor, c_coor4, matche_ans);
-
-img5 = imread('prtn15.jpg');
-imgGray5 = rgb2gray(img5);
-keypoints5 = my_harris(img5);
-descriptors5 = descriptor(keypoints5, imgGray5);
-[CylImg5, c_coor5] = cylindrical_projection(img5, 704.537, 704.537);
-
-matche_ans = matches(descriptors4, descriptors5);
-
-[combineImg, c_coor] = combine(img5, combineImg, CylImg5, c_coor, c_coor5, matche_ans);
-% img2 = imread('prtn00.jpg');
-% [CylImg, corresponding_coor] = cylindrical_projection(img2, 704.916, 704.916);
-% imshow(CylImg)
-
+% write the result
+imwrite(combined_image, 'result.jpg');
 
 end
